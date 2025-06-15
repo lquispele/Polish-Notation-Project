@@ -9,7 +9,7 @@ class Expression
 {
     public:
         Expression();
-        Expression(const Espression &original);
+        Expression(const Expression &original);
         Error_code evalute_prefix(Value &result);
         Error_code get_token(Token &result);
         void put_token(const Token &next);
@@ -25,6 +25,26 @@ class Expression
         List<Token> terms;
         int current_term;
         Error_code recursive_evaluate(const Token &first_token, Value &result, Token &final_token);
+};
+
+class Token
+{
+    public:
+        Token() {}
+        Token (const string &x);
+        Token_type kind() const;
+        int priority() const;
+        double value() const;
+        string name() const;
+        int code_number() const;
+        static void set_parameters();
+        static void print_parameters();
+        static void set_x(double x_val);
+    
+    private:
+        int code;
+        static Lexicon symbol_table;
+        static List<int> parameters;
 };
 
 int main ()
