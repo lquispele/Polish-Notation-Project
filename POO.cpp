@@ -88,9 +88,26 @@ Value get_value(const Token &operand) {
     return operand.value();
 }
 
+Error_code Expression::evaluate_prefix(Value &result) {
+    Token t;
+    Value the_argument, first_argument, second_argument;
+    if (get_token(t) == fail) return fail;
 
+    switch (t.kind()) {
+        case unaryop:
+            if (evaluate_prefix(the_argument) == fail) return fail;
+            else result = do_unary(t, the_argument);
+            break;
 
-Error_code Expression::evaluate_prefix(Value &result)
-{
+        case binaryop:
+            if (evaluate_prefix(first_argument) == fail) return fail;
+            if (evaluate_prefix(second_argument) == fail) return fail;
+            else result = do_binary(t, first_argument, second_argument);
+            break;
 
+        case operand:
+            result = get_value(t);
+            break;
+    }
+    return success;
 }
