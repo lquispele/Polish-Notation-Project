@@ -18,7 +18,7 @@ class Expression
     public:
         Expression();
         Expression(const Expression &original);
-        Error_code evalute_prefix(Value &result);
+        Error_code evaluate_prefix(Value &result);
         Error_code get_token(Token &result);
         void put_token(const Token &next);
         Expression infix_to_prefix(Value &result);
@@ -64,18 +64,33 @@ int main ()
 {
     cout << "Hello world" << "\n";
 
-    //Solicita al usuario la expresion infija
-    //Funcion que cambia la expresion de infija a prefija 
-
     //introduccion();
     Expression infix;
     Expression prefix;
-    //Plot graph; <- todavia en desarrollo
-    //char ch;
-
-    //while ((ch = get_command()) != 'q') do_command(ch, infix, prefix, graph);
-
     return 0;
 }
 
-//Error_code Expression::evaluate_prefix(Value &result)
+Value do_unary(const Token &operation, const Value &arg) {
+    if (operation.kind() == unaryop && operation.value() == '~') return -arg;
+    return arg;
+}
+
+Value do_binary(const Token &operation, const Value &a, const Value &b) {
+    if (operation.kind() != binaryop) return 0;
+    if (operation.value() == '+') return a + b;
+    if (operation.value() == '-') return a - b;
+    if (operation.value() == '*') return a * b;
+    if (operation.value() == '/') return a / b;
+    return 0;
+}
+
+Value get_value(const Token &operand) {
+    return operand.value();
+}
+
+
+
+Error_code Expression::evaluate_prefix(Value &result)
+{
+
+}
