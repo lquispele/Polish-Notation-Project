@@ -1,10 +1,15 @@
 //este es mi primer commit
 //14/06/2025
+//16/06/2025
 
 #include <iostream>
+#include <string>
+#include <vector>
 
 using namespace std;
 
+enum Error_code {success, fail};
+enum Token_type {operand, unaryop, binaryop};
 class Expression
 {
     public:
@@ -20,6 +25,7 @@ class Expression
         Error_code valid_infix();
         int size();
         void rewind();
+        Token Expression::get_token();
         //se anadiran mas metodos
     private:
         List<Token> terms;
@@ -64,3 +70,5 @@ int main ()
 
     return 0;
 }
+
+//Error_code Expression::evaluate_prefix(Value &result)
